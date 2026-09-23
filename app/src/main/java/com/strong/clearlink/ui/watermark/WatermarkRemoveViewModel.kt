@@ -137,6 +137,10 @@ class WatermarkRemoveViewModel(app: Application) : AndroidViewModel(app) {
                 )
             }
             try {
+                if (ShortVideoResolveService.isWeixinChannelsLink(input)) {
+                    ClLog.w("resolve", "识别为微信视频号，当前不支持")
+                    error("暂不支持微信视频号（加密流，无法像抖音/快手一样直取）")
+                }
                 val platform = ShortVideoResolveService.detectPlatform(input)
                     ?: error("未识别到抖音或快手链接")
 

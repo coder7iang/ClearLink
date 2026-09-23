@@ -89,6 +89,15 @@ object ShortVideoResolveService {
         return null
     }
 
+    /** 微信视频号分享链（暂不支持解析） */
+    fun isWeixinChannelsLink(text: String): Boolean {
+        val t = text.lowercase()
+        return t.contains("weixin.qq.com/sph/") ||
+            t.contains("channels.weixin.qq.com") ||
+            Regex("""https?://weixin\.qq\.com/sph/[A-Za-z0-9_-]+""", RegexOption.IGNORE_CASE)
+                .containsMatchIn(text)
+    }
+
     fun extractDouyinShareUrl(text: String): String? {
         val m = douyinShareUrlRe.matcher(text)
         return if (m.find()) m.group() else null
